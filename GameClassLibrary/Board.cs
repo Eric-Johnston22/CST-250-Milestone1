@@ -12,7 +12,7 @@ namespace GameClassLibrary
         public Cell[,] grid { get; set; }
         public int difficulty { get; set; }
 
-        // Board constructor
+        // Board constructor. Creates 2d array grid for game board
         public Board(int size)
         {
             grid = new Cell[size, size];
@@ -43,7 +43,7 @@ namespace GameClassLibrary
             }
         }
 
-        // Determines how many neighboring grids have mines (still needs work)
+        // Determines how many neighboring grids have mines
         public void calculateLiveNeighbors()
         {
             Random rand = new Random();
