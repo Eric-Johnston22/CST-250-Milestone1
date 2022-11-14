@@ -16,6 +16,7 @@ namespace GameClassLibrary
         public Board(int size)
         {
             grid = new Cell[size, size];
+            this.size = size;
             for (int i = 0; i < grid.GetLength(0); i++)
             {
                 for (int j = 0; j < grid.GetLength(1); j++)
@@ -43,23 +44,78 @@ namespace GameClassLibrary
             }
         }
 
+        public bool validateOutOfRange(int row, int column)
+        {
+            return row < size && column < size && row >= 0 && column >= 0;
+        }
+
         // Determines how many neighboring grids have mines
         public void calculateLiveNeighbors()
         {
-            Random rand = new Random();
-
             for (int i = 0; i < grid.GetLength(0); i++)
             {
                 for (int j = 0; j < grid.GetLength(1); j++)
                 {
-                    int randNumber = rand.Next(0, 8);
-                    if (grid[i, j].live == false)
+                    if (validateOutOfRange(i - 1, j))
                     {
-                        grid[i, j].liveNeighbors = randNumber;
+                        if (grid[i - 1, j].live == true)
+                        {
+                            grid[i, j].liveNeighbors++;
+                        }
                     }
-                    else if (grid[i, j].live == true)
+                    if (validateOutOfRange(i - 1, j - 1))
                     {
-                        grid[i, j].liveNeighbors = 9;
+                        if (grid[i - 1, j - 1].live == true)
+                        {
+                            grid[i, j].liveNeighbors++;
+                        }
+                    }
+                    if (validateOutOfRange(i - 1, j + 1))
+                    {
+                        if (grid[i - 1, j + 1].live == true)
+                        {
+                            grid[i, j].liveNeighbors++;
+                        }
+                    }
+                    if (validateOutOfRange(i, j - 1))
+                    {
+                        if (grid[i, j - 1].live == true)
+                        {
+                            grid[i, j].liveNeighbors++;
+                        }
+                    }
+
+                    if (validateOutOfRange(i, j + 1))
+                    {
+                        if (grid[i, j + 1].live == true)
+                        {
+                            grid[i, j].liveNeighbors++;
+                        }
+
+                    }
+                    
+                    if (validateOutOfRange(i + 1, j - 1))
+                    {
+                        if (grid[i + 1, j - 1].live == true)
+                        {
+                            grid[i, j].liveNeighbors++;
+                        }
+                    }
+
+                    if (validateOutOfRange(i + 1, j + 1))
+                    {
+                        if (grid[i + 1, j + 1].live == true)
+                        {
+                            grid[i, j].liveNeighbors++;
+                        }
+                    }
+
+                    if (validateOutOfRange(i + 1, j))
+                    {
+                        if (grid[i + 1, j].live == true)
+                        {
+                            grid[i, j].liveNeighbors++;
+                        }
                     }
                 }
             }
