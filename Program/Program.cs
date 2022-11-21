@@ -33,8 +33,8 @@ namespace Program
                 for (int j = 0; j < board.grid.GetLength(1); j++)
                 {
                     Console.Write("| ");
-                    //Console.Write("? ");
-                    Console.Write(board.grid[i, j].liveNeighbors + " ");
+                    Console.Write("? ");
+                    //Console.Write(board.grid[i, j].liveNeighbors + " ");
                     if (board.grid[i, j].visited == true)
                     {
                         Console.Write(board.grid[i, j].liveNeighbors + " ");
