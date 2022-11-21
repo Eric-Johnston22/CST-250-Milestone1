@@ -56,6 +56,7 @@ namespace GameClassLibrary
             {
                 for (int j = 0; j < grid.GetLength(1); j++)
                 {
+                    // North
                     if (validateOutOfRange(i - 1, j))
                     {
                         if (grid[i - 1, j].live == true)
@@ -63,6 +64,7 @@ namespace GameClassLibrary
                             grid[i, j].liveNeighbors++;
                         }
                     }
+                    // North West
                     if (validateOutOfRange(i - 1, j - 1))
                     {
                         if (grid[i - 1, j - 1].live == true)
@@ -70,6 +72,7 @@ namespace GameClassLibrary
                             grid[i, j].liveNeighbors++;
                         }
                     }
+                    // North East
                     if (validateOutOfRange(i - 1, j + 1))
                     {
                         if (grid[i - 1, j + 1].live == true)
@@ -77,6 +80,7 @@ namespace GameClassLibrary
                             grid[i, j].liveNeighbors++;
                         }
                     }
+                    // West
                     if (validateOutOfRange(i, j - 1))
                     {
                         if (grid[i, j - 1].live == true)
@@ -84,7 +88,7 @@ namespace GameClassLibrary
                             grid[i, j].liveNeighbors++;
                         }
                     }
-
+                    // East
                     if (validateOutOfRange(i, j + 1))
                     {
                         if (grid[i, j + 1].live == true)
@@ -93,7 +97,7 @@ namespace GameClassLibrary
                         }
 
                     }
-                    
+                    // South West
                     if (validateOutOfRange(i + 1, j - 1))
                     {
                         if (grid[i + 1, j - 1].live == true)
@@ -101,7 +105,7 @@ namespace GameClassLibrary
                             grid[i, j].liveNeighbors++;
                         }
                     }
-
+                    // South East
                     if (validateOutOfRange(i + 1, j + 1))
                     {
                         if (grid[i + 1, j + 1].live == true)
@@ -109,7 +113,7 @@ namespace GameClassLibrary
                             grid[i, j].liveNeighbors++;
                         }
                     }
-
+                    // South
                     if (validateOutOfRange(i + 1, j))
                     {
                         if (grid[i + 1, j].live == true)
@@ -118,6 +122,50 @@ namespace GameClassLibrary
                         }
                     }
                 }
+            }
+        }
+
+        /* Reveals all adjacent cells with no live neighbors
+         * Only reveals cells North, South, East, and West
+         */
+        public void floodFill(int row, int column)
+        {
+            if (grid[row, column].visited)
+            {
+                return;
+            }
+
+            if (grid[row, column].live)
+            {
+                return;
+            }
+
+            if (grid[row, column].liveNeighbors > 0)
+            {
+                return;
+            }
+
+            grid[row, column].visited = true;
+
+            // North
+            if (validateOutOfRange(row - 1, column))
+            {
+                floodFill(row - 1, column);
+            }
+            // South
+            if (validateOutOfRange(row + 1, column))
+            {
+                floodFill(row + 1, column);
+            }
+            // East
+            if (validateOutOfRange(row, column + 1))
+            {
+                floodFill(row, column + 1);
+            }
+            // West
+            if (validateOutOfRange(row, column - 1))
+            {
+                floodFill(row, column - 1);
             }
         }
     }
