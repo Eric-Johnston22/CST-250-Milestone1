@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameClassLibrary", "GameClassLibrary\GameClassLibrary.csproj", "{EF52E217-E8F3-46A5-A7E2-D7CB4634AE1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameClassLibrary", "GameClassLibrary\GameClassLibrary.csproj", "{EF52E217-E8F3-46A5-A7E2-D7CB4634AE1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Program", "Program\Program.csproj", "{0CD6E6FC-66E3-4465-9314-2706D5394473}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Program", "Program\Program.csproj", "{0CD6E6FC-66E3-4465-9314-2706D5394473}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperGUI", "MinesweeperGUI\MinesweeperGUI.csproj", "{2D006C2D-FAB8-43FE-80EC-53597A7E4F7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{0CD6E6FC-66E3-4465-9314-2706D5394473}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CD6E6FC-66E3-4465-9314-2706D5394473}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CD6E6FC-66E3-4465-9314-2706D5394473}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D006C2D-FAB8-43FE-80EC-53597A7E4F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D006C2D-FAB8-43FE-80EC-53597A7E4F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D006C2D-FAB8-43FE-80EC-53597A7E4F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D006C2D-FAB8-43FE-80EC-53597A7E4F7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
