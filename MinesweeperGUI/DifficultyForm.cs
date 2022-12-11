@@ -3,6 +3,7 @@ namespace MinesweeperGUI
     public partial class DifficultyForm : Form
     {
         private int difficulty;
+        private int boardSize;
         public DifficultyForm()
         {
             InitializeComponent();
@@ -12,24 +13,32 @@ namespace MinesweeperGUI
         {
             if (radioEasy.Checked)
             {
-                difficulty = 9;
+                boardSize = 9;
+                difficulty = 12;
             }
             if (radioModerate.Checked)
             {
-                difficulty = 12;
+                boardSize = 12;
+                difficulty = 9;
             }
             if (radioHard.Checked)
             {
-                difficulty = 15;
+                boardSize = 15;
+                difficulty = 7;
             }
             else if (!radioEasy.Checked && !radioModerate.Checked && !radioHard.Checked)
             {
                 MessageBox.Show("You must make a selection");
             }
 
-            GameForm gameForm = new GameForm(difficulty);
+            GameForm gameForm = new GameForm(boardSize, difficulty);
             this.Hide();
             gameForm.Show();
+        }
+
+        private void DifficultyForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

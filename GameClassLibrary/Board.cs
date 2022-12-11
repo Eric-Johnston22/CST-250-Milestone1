@@ -26,7 +26,7 @@ namespace GameClassLibrary
             }
         }
 
-        // Determines which locations in the grid is a mine
+        // Determines which locations in the grid is a mine based on difficulty
         public void setupLiveNeighbors(int difficulty)
         {
             Random rand = new Random();
@@ -129,13 +129,8 @@ namespace GameClassLibrary
          * Only reveals cells North, South, East, and West
          */
         public void floodFill(int row, int column)
-        {
+        {      
             if (grid[row, column].visited)
-            {
-                return;
-            }
-
-            if (grid[row, column].live)
             {
                 return;
             }
@@ -150,22 +145,50 @@ namespace GameClassLibrary
             // North
             if (validateOutOfRange(row - 1, column))
             {
-                floodFill(row - 1, column);
+                if (grid[row - 1, column].liveNeighbors == 0)
+                {
+                    floodFill(row - 1, column);
+                }
+                else if (!grid[row - 1, column].live)
+                {
+                    grid[row - 1, column].visited = true;
+                }
             }
             // South
             if (validateOutOfRange(row + 1, column))
             {
-                floodFill(row + 1, column);
+                if (grid[row + 1, column].liveNeighbors == 0)
+                {
+                    floodFill(row + 1, column);
+                }
+                else if (!grid[row + 1, column].live)
+                {
+                    grid[row + 1, column].visited = true;
+                }
             }
             // East
             if (validateOutOfRange(row, column + 1))
             {
-                floodFill(row, column + 1);
+                if (grid[row, column + 1].liveNeighbors == 0)
+                {
+                    floodFill(row, column + 1);
+                }
+                else if (!grid[row, column + 1].live)
+                {
+                    grid[row, column + 1].visited = true;
+                }
             }
             // West
             if (validateOutOfRange(row, column - 1))
             {
-                floodFill(row, column - 1);
+                if (grid[row, column - 1].liveNeighbors == 0)
+                {
+                    floodFill(row, column - 1);
+                }
+                else if (!grid[row, column - 1].live)
+                {
+                    grid[row, column - 1].visited = true;
+                }
             }
         }
     }
