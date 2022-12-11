@@ -58,16 +58,9 @@ namespace MinesweeperGUI
                     btnGrid[i, j] = newBtn;
                     panel1.Controls.Add(newBtn);
 
-                    if (board.grid[i, j].live)
-                    {
-                        string path = Path.Combine(Environment.CurrentDirectory, @"..\..\..\images\bomb.png");
-                        newBtn.Image = Image.FromFile(path);
-                    }
-                    if (board.grid[i, j].liveNeighbors > 0)
-                    {
-                        //newBtn.Text = board.grid[i, j].liveNeighbors.ToString();
-                    }
+                    
                     newBtn.Click += buttonClickEvent;
+                    newBtn.MouseUp += buttonRightClickEvent;
                 }
             }
 
@@ -106,16 +99,15 @@ namespace MinesweeperGUI
         private void checkForWin()
         {
             int numOfCells = boardSize * boardSize;
-            int numOfMines = 0;
             int numVisited = 0;
 
             for (int i = 0; i < board.size; i++)
             {
                 for (int j = 0; j < board.size; j++)
                 {
+                    // If a cell is live, subract from numOfCells
                     if (board.grid[i, j].live)
                     {
-                        numOfMines++;
                         numOfCells--;
                     }
                     if (board.grid[i, j].visited)
@@ -133,9 +125,24 @@ namespace MinesweeperGUI
                     for (int j = 0; j < boardSize; j++)
                     {
                         btnGrid[i, j].Image = Image.FromFile(FLAG_IMG);
+                        btnGrid[i, j].Text = "";
                     }
                 }
                 MessageBox.Show("You Win! " + label1.Text);
+            }
+        }
+
+        public void buttonRightClickEvent(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var btnData = (sender as Button).Tag as ButtonData;
+
+                Cell currentCell = board.grid[btnData.row, btnData.column];
+                currentCell.row = btnData.row;
+                currentCell.column = btnData.column;
+
+                btnGrid[currentCell.row, currentCell.column].Image = Image.FromFile(FLAG_IMG);
             }
         }
 
@@ -161,8 +168,12 @@ namespace MinesweeperGUI
                     for (int j = 0; j < board.size; j++)
                     {
                         btnGrid[i, j].Image = Image.FromFile(BOMB_IMG);
+                        btnGrid[i, j].Text = "";
                     }
                 }
+                watch.Stop();
+                timer1.Enabled = false;
+                MessageBox.Show("Game Over");
             }
             
             
