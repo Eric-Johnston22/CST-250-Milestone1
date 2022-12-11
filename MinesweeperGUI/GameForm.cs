@@ -43,8 +43,6 @@ namespace MinesweeperGUI
             {
                 for (int j = 0; j < boardSize; j++)
                 {
-
-
                     Button newBtn = new Button
                     {
                         Size = new Size(25, 25),
@@ -58,12 +56,11 @@ namespace MinesweeperGUI
                     btnGrid[i, j] = newBtn;
                     panel1.Controls.Add(newBtn);
 
-                    
                     newBtn.Click += buttonClickEvent;
                     newBtn.MouseUp += buttonRightClickEvent;
                 }
             }
-
+            // Set the size of the GameForm
             this.Size = new Size(panel1.Size.Width + 50, panel1.Size.Height + 75);
         }
 
@@ -153,7 +150,7 @@ namespace MinesweeperGUI
             Cell currentCell = board.grid[btnData.row, btnData.column];
             currentCell.row = btnData.row;
             currentCell.column = btnData.column;
-        
+
             if (!currentCell.live)
             {
                 board.floodFill(currentCell.row, currentCell.column);
@@ -175,8 +172,6 @@ namespace MinesweeperGUI
                 timer1.Enabled = false;
                 MessageBox.Show("Game Over");
             }
-            
-            
         }
 
         private void timer1_Tick(object sender, EventArgs e)
