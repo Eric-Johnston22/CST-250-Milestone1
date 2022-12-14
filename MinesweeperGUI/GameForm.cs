@@ -15,6 +15,7 @@ namespace MinesweeperGUI
     public partial class GameForm : Form
     {
         private int boardSize;
+        private string playerName;
         private Board board;
         private Button[,] btnGrid;
         private Stopwatch watch = new Stopwatch();
@@ -22,9 +23,10 @@ namespace MinesweeperGUI
         string BOMB_IMG = Path.Combine(Environment.CurrentDirectory, @"..\..\..\images\bomb.png");
         string FLAG_IMG = Path.Combine(Environment.CurrentDirectory, @"..\..\..\images\flag.png");
 
-        public GameForm(int boardSize, int difficulty)
+        public GameForm(int boardSize, int difficulty, string playerName)
         {
             this.boardSize = boardSize;
+            this.playerName = playerName;
             board = new Board(boardSize);
             btnGrid = new Button[boardSize, boardSize];
             InitializeComponent();
@@ -56,12 +58,18 @@ namespace MinesweeperGUI
                     btnGrid[i, j] = newBtn;
                     panel1.Controls.Add(newBtn);
 
+                    // Show all bombs on grid for testing purposes
+                    if (board.grid[i, j].live)
+                    {
+                        newBtn.Image = Image.FromFile(BOMB_IMG);
+                    }
+
                     newBtn.Click += buttonClickEvent;
                     newBtn.MouseUp += buttonRightClickEvent;
                 }
             }
             // Set the size of the GameForm
-            this.Size = new Size(panel1.Size.Width + 50, panel1.Size.Height + 75);
+            this.Size = new Size(panel1.Size.Width + 45, panel1.Size.Height + 85);
         }
 
         private void printBoardDuringGame(Board board, int row, int column)
@@ -93,10 +101,90 @@ namespace MinesweeperGUI
             }
         }
 
+        // Calculates player score based on time taken to complete game
+        public int calculateScore(int time, int difficulty)
+        {
+            int pointBase = 1000;
+            if (difficulty == 9)
+            {
+                if (time <= 30)
+                {
+                    return (int)Math.Round((pointBase - time) * .65);
+                }
+                else if (time > 30)
+                {
+                    return (int)Math.Round((pointBase - (time * 2)) * .65);
+                }
+                else if (time >= 90)
+                {
+                    return (int)Math.Round((pointBase - (time * 3)) * .65);
+                }
+                else if (time >= 240)
+                {
+                    return (int)Math.Round((pointBase - (time * 4)) * .65);
+                }
+                else
+                {
+                    return (int)Math.Round((pointBase - (time * 5)) * .65);
+                }
+            }
+            else if (difficulty == 12)
+            {
+                if (time <= 30)
+                {
+                    return (int)Math.Round((pointBase - time) * .7);
+                }
+                else if (time > 30)
+                {
+                    return (int)Math.Round((pointBase - (time * 2)) * .7);
+                }
+                else if (time >= 90)
+                {
+                    return (int)Math.Round((pointBase - (time * 3)) * .7);
+                }
+                else if (time >= 240)
+                {
+                    return (int)Math.Round((pointBase - (time * 4)) * .7);
+                }
+                else
+                {
+                    return (int)Math.Round((pointBase - (time * 5)) * .7);
+                }
+            }
+            else if (difficulty == 15)
+            {
+                if (time <= 30)
+                {
+                    return (int)Math.Round((pointBase - time) * .75);
+                }
+                else if (time > 30)
+                {
+                    return (int)Math.Round((pointBase - (time * 2)) * .75);
+                }
+                else if (time >= 90)
+                {
+                    return (int)Math.Round((pointBase - (time * 3)) * .75);
+                }
+                else if (time >= 240)
+                {
+                    return (int)Math.Round((pointBase - (time * 4)) * .75);
+                }
+                else
+                {
+                    return (int)Math.Round((pointBase - (time * 5)) * .75);
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         private void checkForWin()
         {
             int numOfCells = boardSize * boardSize;
             int numVisited = 0;
+            int gameTime = int.Parse(watch.Elapsed.TotalSeconds.ToString("F0"));
 
             for (int i = 0; i < board.size; i++)
             {
@@ -117,7 +205,7 @@ namespace MinesweeperGUI
             {
                 watch.Stop();
                 timer1.Enabled = false;
-                for (int i = 0; i < boardSize; i ++)
+                for (int i = 0; i < boardSize; i++)
                 {
                     for (int j = 0; j < boardSize; j++)
                     {
@@ -125,7 +213,38 @@ namespace MinesweeperGUI
                         btnGrid[i, j].Text = "";
                     }
                 }
-                MessageBox.Show("You Win! " + label1.Text);
+
+                // Set difficulty as a string for high score form
+                string difficulty = "";
+
+                if (boardSize == 9)
+                {
+                    difficulty = "Easy";
+                }
+                else if (boardSize == 12)
+                {
+                    difficulty = "Moderate";
+                }
+                else if (boardSize == 15)
+                {
+                    difficulty = "Hard";
+                }
+
+                PlayerStats player = new PlayerStats(playerName, difficulty, gameTime, calculateScore(gameTime, boardSize));
+
+                HighScoresForm highScoresForm = new HighScoresForm(player, difficulty);
+
+                DialogResult result = MessageBox.Show("You Win! " + label1.Text + "\nShow high scores?", "Confirmation", MessageBoxButtons.YesNo);
+                
+                if (result == DialogResult.Yes)
+                {
+                    this.Hide();
+                    highScoresForm.Show();
+                }
+                else if (result == DialogResult.No)
+                {
+                    System.Windows.Forms.Application.Exit();
+                }
             }
         }
 

@@ -4,6 +4,7 @@ namespace MinesweeperGUI
     {
         private int difficulty;
         private int boardSize;
+        private string playerName;
         public DifficultyForm()
         {
             InitializeComponent();
@@ -31,9 +32,18 @@ namespace MinesweeperGUI
                 MessageBox.Show("You must make a selection");
             }
 
-            GameForm gameForm = new GameForm(boardSize, difficulty);
-            this.Hide();
-            gameForm.Show();
+            if (textBox1.Text == null || textBox1.Text == "")
+            {
+                MessageBox.Show("You must enter your name");
+            }
+            else
+            {
+                playerName = textBox1.Text;
+                GameForm gameForm = new GameForm(boardSize, difficulty, playerName);
+                this.Hide();
+                gameForm.Show();
+            }
+
         }
 
         private void DifficultyForm_Load(object sender, EventArgs e)
