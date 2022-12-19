@@ -59,10 +59,10 @@ namespace MinesweeperGUI
                     panel1.Controls.Add(newBtn);
 
                     // Show all bombs on grid for testing purposes
-                    if (board.grid[i, j].live)
-                    {
-                        newBtn.Image = Image.FromFile(BOMB_IMG);
-                    }
+                    //if (board.grid[i, j].live)
+                    //{
+                    //    newBtn.Image = Image.FromFile(BOMB_IMG);
+                    //}
 
                     newBtn.Click += buttonClickEvent;
                     newBtn.MouseUp += buttonRightClickEvent;
@@ -234,7 +234,7 @@ namespace MinesweeperGUI
 
                 HighScoresForm highScoresForm = new HighScoresForm(player, difficulty);
 
-                DialogResult result = MessageBox.Show("You Win! " + label1.Text + "\nShow high scores?", "Confirmation", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("You Win! " + label1.Text + "\n\nShow high scores?", "Confirmation", MessageBoxButtons.YesNo);
                 
                 if (result == DialogResult.Yes)
                 {
@@ -243,7 +243,7 @@ namespace MinesweeperGUI
                 }
                 else if (result == DialogResult.No)
                 {
-                    System.Windows.Forms.Application.Exit();
+                    Application.Exit();
                 }
             }
         }
@@ -289,7 +289,13 @@ namespace MinesweeperGUI
                 }
                 watch.Stop();
                 timer1.Enabled = false;
-                MessageBox.Show("Game Over");
+
+                // Display game over, exit application
+                DialogResult result = MessageBox.Show("Game Over");
+                if (result == DialogResult.OK)
+                {
+                    Application.Exit();
+                }
             }
         }
 

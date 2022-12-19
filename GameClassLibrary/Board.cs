@@ -129,7 +129,7 @@ namespace GameClassLibrary
          * Only reveals cells North, South, East, and West
          */
         public void floodFill(int row, int column)
-        {      
+        {
             if (grid[row, column].visited)
             {
                 return;

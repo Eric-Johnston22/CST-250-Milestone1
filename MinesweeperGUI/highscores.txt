@@ -8,8 +8,9 @@ Arthur, Easy, 90, 430
 Janice, Moderate, 30, 612
 Toby, Moderate, 90, 580
 Dan, Moderate, 78, 600
-Jill, Easy, 2, 649
-Eric, Easy, 16, 640
 Paul, Easy, 8, 645
 Jack, Easy, 14, 641
 Aaron, Moderate, 30, 679
+Dylan, Easy, 11, 643
+Darren, Easy, 97, 524
+Eric, Easy, 15, 640
